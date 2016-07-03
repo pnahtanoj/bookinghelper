@@ -1,0 +1,29 @@
+<md-content>
+	<md-table-container>
+		<table md-table md-row-select multiple ng-model="$ctrl.selected" md-progress="promise">
+
+		    <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+				<tr md-row>
+					<th md-column md-order-by="nameToLower"><span>Name</span></th>
+					<th md-column md-numeric md-order-by="calories.value"><span>Genre</span></th>
+					<th md-column md-numeric>Hometown</th>
+				</tr>
+		    </thead>
+
+		    <tbody md-body>
+				<tr md-row md-select="band" md-select-id="name" md-auto-select ng-repeat="band in $ctrl.bands">
+					<td md-cell>{{band.name}}</td>
+					<td md-cell>{{band.hometown}}</td>
+					<td md-cell>{{band.genre}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+
+	<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" 
+		md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+
+	<div>
+		<md-button class='md-primary md-raised' ng-click='$ctrl.load()'>Load</md-button>
+	</div>
+</md-content>

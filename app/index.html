@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="bookingHelperApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ui-view class='main-content'></div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="dist/scripts/app.js"></script>
+        <script src="dist/scripts/baseline.js"></script>
+        
+        <script src="dist/scripts/model/address.js"></script>
+        <script src="dist/scripts/model/band.js"></script>
+        <script src="dist/scripts/model/booking.agent.js"></script>
+        <script src="dist/scripts/model/enums.js"></script>
+        <script src="dist/scripts/model/venue.js"></script>
+        <script src="dist/scripts/services/band.api.js"></script>
+        <script src="dist/scripts/services/booking.agent.api.js"></script>        
+        <script src="dist/scripts/services/venue.api.js"></script>
+
+        <script src="dist/scripts/security/login.js"></script>
+
+        <script src="dist/scripts/agent/bands.list.js"></script>
+        <!-- endbuild -->
+
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD_sa3t5GdYVU05Dt69oz2TcOgOPV2vEFM",
+    authDomain: "bookinghelper-56068.firebaseapp.com",
+    databaseURL: "https://bookinghelper-56068.firebaseio.com",
+    storageBucket: "bookinghelper-56068.appspot.com",
+  };
+  firebase.initializeApp(config);
+</script>
+
+</body>
+</html>

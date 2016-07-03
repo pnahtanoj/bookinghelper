@@ -14,6 +14,7 @@ namespace bh {
 		constructor(public $q:angular.IQService) {
 			this.bandsRef = firebase.database().ref(BH_ENDPOINT_BANDS);
 			this.selected = [];
+			
 		}
 
 		load() {

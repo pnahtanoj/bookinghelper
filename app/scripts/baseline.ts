@@ -6,6 +6,8 @@
 /// <reference path="./services/booking.agent.api.ts"/>
 /// <reference path="./model/venue.ts"/>
 /// <reference path="./services/venue.api.ts"/>
+/// <reference path="./model/user.ts"/>
+/// <reference path="./services/user.api.ts"/>
 
 namespace bh {
 
@@ -17,19 +19,28 @@ namespace bh {
 		bandsRef: any;
 		bookingAgentsRef: any;
 		venuesRef: any;
+		usersRef: any;
 
 		constructor(public $q:angular.IQService, public BandApi:IBandApi, 
-			public BookingAgentApi:IBookingAgentApi, public VenueApi:IVenueApi) {
+			public BookingAgentApi:IBookingAgentApi, public VenueApi:IVenueApi, public UserApi:IUserApi,
+			public $firebaseAuth:any) {
 
 			this.bandsRef = firebase.database().ref(BH_ENDPOINT_BANDS);
 			this.bookingAgentsRef = firebase.database().ref(BH_ENDPOINT_BOOKINGAGENTS)
 			this.venuesRef = firebase.database().ref(BH_ENDPOINT_VENUES);
+			this.usersRef = firebase.database().ref(BH_ENDPOINT_USERS);
 		}
 
 		baselineData() {
-			this.baselineBands();
-			this.baselineBookingAgents();
-			this.baselineVenues();
+			// firebase.database().ref().$removeUser({email:'jen@jen.com', password:'jennifer'});
+			// this.createAccounts();
+			// 	.then(() => {
+					this.clearUsers();
+
+					this.baselineBands();
+					this.baselineBookingAgents();
+					this.baselineVenues();
+				// })
 		}
 
 		baselineVenues() {
@@ -65,61 +76,59 @@ namespace bh {
 		}
 
 		baselineBookingAgents() {
-			
-			let baselineBookingAgents = [];
-			
-			let jen:BookingAgent = new BookingAgent();
-			jen.name = 'Jennifer Tefft';
-			jen.active = true;
-
-			let liz:BookingAgent = new BookingAgent();
-			liz.name = 'Liz Garo';
-			liz.active = true;
-
-			baselineBookingAgents.push(jen);
-			baselineBookingAgents.push(liz);
-
 			this.clearBookingAgents()
 				.then(() => {
-					angular.forEach(baselineBookingAgents, (b) => {
-						this.BookingAgentApi.addBookingAgent(b)
-							.then((resp) => {
-								console.log('booking agent added: ', b);
-							})
-					})
-				})
-				.catch((err) => console.log('clearing error: ', err))
+					// password = jennifer //
+					let jenU:User = new User();
+					jenU.uid = 'YsHIKqtMLNZRRUKgzJYqccbfIzh1';
+					jenU.role = 'agent';
+					this.UserApi.create(jenU);
+					let jen:BookingAgent = new BookingAgent();
+					jen.name = 'Jennifer Tefft';
+					this.BookingAgentApi.create(jen, jenU.uid);
+
+					// password = lizgaro //
+					let lizU:User = new User();
+					lizU.uid = 'd1m1fH0U2ndOiAQfjWDaFHgNyQL2';
+					lizU.role = 'admin';
+					this.UserApi.create(lizU);
+					let liz:BookingAgent = new BookingAgent();
+					liz.name = 'Liz Garo';
+					this.BookingAgentApi.create(liz,lizU.uid);					
+				})			
+
 		}
 
 		baselineBands() {
 			
-			let baselineBands = [];
-			
-			let band:Band = new Band();
-			band.name = 'Chumbawumba';
-			band.hometown = 'Saskatoon';
-			band.genre = 'Pop';
-			band.active = true;
-
-			let band2:Band = new Band();
-			band2.name = 'Spoon';
-			band2.hometown = 'Austin';
-			band2.genre = 'Rock';
-			band2.active = true;
-
-			baselineBands.push(band);
-			baselineBands.push(band2);
-
 			this.clearBands()
 				.then(() => {
-					angular.forEach(baselineBands, (b) => {
-						this.BandApi.addBand(b)
-							.then((resp) => {
-								console.log('band added: ', b);
-							})
-					})
-				})
-				.catch((err) => console.log('clearing error: ', err))
+					// password = flyinglotus //
+					let flyU:User = new User();
+					flyU.uid = 'CJgV6xVfTfbLWdUyZGIHJrVS37I2';
+					flyU.role = 'artist';
+					this.UserApi.create(flyU);
+					let flylo:Band = new Band();
+					flylo.name = 'Flying Lotus';
+					flylo.hometown = 'Los Angeles';
+					flylo.genre = 'Electronic';
+					flylo.active = true;
+					this.BandApi.create(flylo, flyU.uid);
+
+					// password = spoonspoon //
+					let spoonU:User = new User();
+					spoonU.uid = '57U0zyJypkb1yXd0PQ6oTkVaMpw2';
+					spoonU.role = 'artist';
+					this.UserApi.create(spoonU);
+
+					let spoon:Band = new Band();
+					spoon.name = 'Spoon';
+					spoon.hometown = 'Austin';
+					spoon.genre = 'Rock';
+					spoon.active = true;
+					this.BandApi.create(spoon, spoonU.uid);
+				});
+
 		}
 
 		clearBookingAgents() {
@@ -162,10 +171,37 @@ namespace bh {
 				})
 
 			return d.promise;
-		}		
+		}	
+
+		clearUsers() {
+			let d = this.$q.defer();
+
+			this.usersRef.remove()
+				.then((err) => {
+					if (err)
+						d.reject(err)
+					else
+						d.resolve();
+				})
+
+			return d.promise;
+		}
+
+		// clearAccounts() {
+		// 	let d = this.$q.defer();
+		// 	let auth = this.$firebaseAuth();
+
+		// 	this.$q.all([
+		// 		auth.removeUser({email: 'jen@jen.com', password: 'jennifer'}),
+		// 		auth.removeUser({email: 'liz@liz.com', password: 'lizgaro'})
+		// 	])
+		// 	.then(() => d.resolve());
+
+		// 	return d.promise;
+		// }			
 	} 
 
-	BaselineCtrl.$inject = ['$q','BandApi','BookingAgentApi','VenueApi'];
+	BaselineCtrl.$inject = ['$q','BandApi','BookingAgentApi','VenueApi','UserApi','$firebaseAuth'];
 
 	angular
 		.module('bookingHelperApp')

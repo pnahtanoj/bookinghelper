@@ -9,7 +9,7 @@ namespace bh {
 
 	export interface IBandApi {
 		bandsRef: any;
-        addBand: (band: Band) => angular.IPromise<any>;
+        create: (band:Band, uid:string) => angular.IPromise<any>;
 	}
 
 	class BandApi implements IBandApi {
@@ -19,10 +19,10 @@ namespace bh {
 			this.bandsRef = firebase.database().ref(BH_ENDPOINT_BANDS);
 		}
 
-		addBand(band:Band) {
+		create(band:Band, uid:string) {
 			let d = this.$q.defer();
 
-			this.bandsRef.push(band)
+			this.bandsRef.child(uid).set(band)
 				.then((resp) => {
 					console.log(resp.key); // set in band here if you want/need...
 					d.resolve(band);

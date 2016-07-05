@@ -1,4 +1,7 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
+/// <reference path="../../../typings/angular-material/angular-material.d.ts"/>
+/// <reference path="../../../typings/angularfire/angularfire.d.ts"/>
+/// <reference path="../../../typings/es6-promise/es6-promise.d.ts"/>
 /// <reference path="../model/enums.ts"/>
 /// <reference path="../model/venue.ts"/>
 
@@ -10,34 +13,37 @@ namespace bh {
 
 	export interface IVenueApi {
 		venuesRef: any;
-        addVenue: (venue: Venue) => angular.IPromise<any>;
+        create: (venue:Venue) => angular.IPromise<any>;
 	}
 
 	class VenueApi implements IVenueApi {
 		venuesRef: any;
 
-		constructor(public $q:angular.IQService) {
+		constructor(public $q:angular.IQService, public $firebaseObject:any, public $mdToast:angular.material.IToastService) {
 			this.venuesRef = firebase.database().ref(BH_ENDPOINT_VENUES);
 		}
 
-		addVenue(venue:Venue) {
+		create(venue:Venue) {
 			let d = this.$q.defer();
-
 			this.venuesRef.push(venue)
 				.then((resp) => {
-					console.log(resp.key); // set in band here if you want/need...
-					d.resolve(venue);
+					let obj:Venue = this.$firebaseObject(this.venuesRef.child(resp.key));
+
+			    	obj.name = venue.name;
+			    	obj.address = venue.address;
+			    	obj.active = venue.active;
+
+					this.$mdToast.show( this.$mdToast.simple().textContent('Successfully created venue ' + venue.name))
+					console.log('create success, new key: ', resp.key);
+					d.resolve(obj);
 				})
-				.catch((err) => {
-					console.log(err);
-					d.reject(err)
-				})
+				.catch((error) => this.$mdToast.show( this.$mdToast.simple().textContent(error)))
 
 			return d.promise;
 		}
 	} 
 
-	VenueApi.$inject = ['$q'];
+	VenueApi.$inject = ['$q','$firebaseObject','$mdToast'];
 
 	angular
 		.module('bookingHelperApp')

@@ -66,7 +66,7 @@ namespace bh {
 			this.clearVenues()
 				.then(() => {
 					angular.forEach(venues, (b) => {
-						this.VenueApi.addVenue(b)
+						this.VenueApi.create(b)
 							.then((resp) => {
 								console.log('venue added: ', b);
 							})

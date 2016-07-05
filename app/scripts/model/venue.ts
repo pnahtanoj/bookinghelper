@@ -6,15 +6,26 @@ namespace bh {
 	'use strict';
 
 	export class Venue {
-	    key: string;
+		// AngularFireObject values //
+		$id: any;
+		$priority: any;
+		$value: any;
+		$remove: any;
+		$save: any;
+		$loaded: any;
+		$ref: any;
+		$bindTo: any;
+		$watch: any;
+		$destroy: any;
+		// AngularFireObject values //
+
 	    name: string;
 	    address: Address;
 	    active: boolean;
 
 	    constructor() {
-	    	this.key = '';
 	    	this.name = '';
-	    	this.address = new bh.Address();
+	    	this.address = new Address();
 	    	this.active = true;
 	    	return this;
 	    }

@@ -19,14 +19,13 @@ namespace bh {
 	class ArtistApi implements IArtistApi {
 		artistsRef: any;
 
-		constructor(public $q:angular.IQService, public $firebaseObject:any) {
+		constructor(public $firebaseObject:any) {
 			this.artistsRef = firebase.database().ref(BH_ENDPOINT_ARTISTS);
 		}
 
 		get(uid:string) :Artist {
 			return this.$firebaseObject(this.artistsRef.child(uid));
 		}
-
 
 		create(agent:Artist, uid:string) {
 			let obj:Artist = this.$firebaseObject(this.artistsRef.child(uid));
@@ -39,7 +38,7 @@ namespace bh {
 		}
 	} 
 
-	ArtistApi.$inject = ['$q','$firebaseObject'];
+	ArtistApi.$inject = ['$firebaseObject'];
 
 	angular
 		.module('bookingHelperApp')

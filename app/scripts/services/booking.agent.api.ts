@@ -19,7 +19,7 @@ namespace bh {
 	class BookingAgentApi implements IBookingAgentApi {
 		agentsRef: any;
 
-		constructor(public $q:angular.IQService, public $firebaseObject:any) {
+		constructor(public $firebaseObject:any) {
 			this.agentsRef = firebase.database().ref(BH_ENDPOINT_BOOKINGAGENTS);
 		}
 
@@ -36,7 +36,7 @@ namespace bh {
 		}
 	} 
 
-	BookingAgentApi.$inject = ['$q','$firebaseObject'];
+	BookingAgentApi.$inject = ['$firebaseObject'];
 
 	angular
 		.module('bookingHelperApp')

@@ -1,0 +1,22 @@
+<md-content flex='100' layout='column' layout-align='center center'>
+	<h1>Artist Profile</h1>
+
+	<md-input-container>
+		<label>Name</label>
+		<input ng-model='$ctrl.artist.name'>
+	</md-input-container>
+
+	<md-input-container>
+		<label>Hometown</label>
+		<input ng-model='$ctrl.artist.hometown'>
+	</md-input-container>
+
+	<md-input-container>
+		<label>Genre</label>
+		<input ng-model='$ctrl.artist.genre'>
+	</md-input-container>
+
+{{ $ctrl.artist }}
+
+	<md-button ng-click='$ctrl.update()'></md-button>
+</md-content>

@@ -1,0 +1,12 @@
+<md-content flex='100' layout='column' layout-align='center center'>
+	<h1>Agent Profile</h1>
+
+	<md-input-container>
+		<label>Name</label>
+		<input ng-model='$ctrl.agent.name'>
+	</md-input-container>
+
+{{ $ctrl.agent }}
+
+	<md-button ng-click='$ctrl.update()'></md-button>
+</md-content>

@@ -1,7 +1,7 @@
 /// <reference path="../../typings/angularjs/angular.d.ts"/>
 /// <reference path="./model/enums.ts"/>
-/// <reference path="./model/band.ts"/>
-/// <reference path="./services/band.api.ts"/>
+/// <reference path="./model/artist.ts"/>
+/// <reference path="./services/artist.api.ts"/>
 /// <reference path="./model/booking.agent.ts"/>
 /// <reference path="./services/booking.agent.api.ts"/>
 /// <reference path="./model/venue.ts"/>
@@ -16,16 +16,16 @@ namespace bh {
 	declare var firebase: any;
 
 	class BaselineCtrl {
-		bandsRef: any;
+		artistRef: any;
 		bookingAgentsRef: any;
 		venuesRef: any;
 		usersRef: any;
 
-		constructor(public $q:angular.IQService, public BandApi:IBandApi, 
+		constructor(public $q:angular.IQService, public ArtistApi:IArtistApi, 
 			public BookingAgentApi:IBookingAgentApi, public VenueApi:IVenueApi, public UserApi:IUserApi,
 			public $firebaseAuth:any) {
 
-			this.bandsRef = firebase.database().ref(BH_ENDPOINT_BANDS);
+			this.artistRef = firebase.database().ref(BH_ENDPOINT_ARTISTS);
 			this.bookingAgentsRef = firebase.database().ref(BH_ENDPOINT_BOOKINGAGENTS)
 			this.venuesRef = firebase.database().ref(BH_ENDPOINT_VENUES);
 			this.usersRef = firebase.database().ref(BH_ENDPOINT_USERS);
@@ -108,12 +108,12 @@ namespace bh {
 					flyU.uid = 'CJgV6xVfTfbLWdUyZGIHJrVS37I2';
 					flyU.role = 'artist';
 					this.UserApi.create(flyU);
-					let flylo:Band = new Band();
+					let flylo:Artist = new Artist();
 					flylo.name = 'Flying Lotus';
 					flylo.hometown = 'Los Angeles';
 					flylo.genre = 'Electronic';
 					flylo.active = true;
-					this.BandApi.create(flylo, flyU.uid);
+					this.ArtistApi.create(flylo, flyU.uid);
 
 					// password = spoonspoon //
 					let spoonU:User = new User();
@@ -121,12 +121,12 @@ namespace bh {
 					spoonU.role = 'artist';
 					this.UserApi.create(spoonU);
 
-					let spoon:Band = new Band();
+					let spoon:Artist = new Artist();
 					spoon.name = 'Spoon';
 					spoon.hometown = 'Austin';
 					spoon.genre = 'Rock';
 					spoon.active = true;
-					this.BandApi.create(spoon, spoonU.uid);
+					this.ArtistApi.create(spoon, spoonU.uid);
 				});
 
 		}
@@ -148,7 +148,7 @@ namespace bh {
 		clearBands() {
 			let d = this.$q.defer();
 
-			this.bandsRef.remove()
+			this.artistRef.remove()
 				.then((err) => {
 					if (err)
 						d.reject(err)
@@ -201,7 +201,7 @@ namespace bh {
 		// }			
 	} 
 
-	BaselineCtrl.$inject = ['$q','BandApi','BookingAgentApi','VenueApi','UserApi','$firebaseAuth'];
+	BaselineCtrl.$inject = ['$q','ArtistApi','BookingAgentApi','VenueApi','UserApi','$firebaseAuth'];
 
 	angular
 		.module('bookingHelperApp')

@@ -1,6 +1,4 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
-/// <reference path="./booking.agent.ts"/>
-/// <reference path="./band.ts"/>
 
 namespace bh {
 

@@ -39,9 +39,25 @@ namespace bh {
           .state('agent', {
             template: '<div ui-view></div>'
           })
-            .state('agent.bands', {
-              url: '/bands',
-              template: '<bands-list></bands-list>'
+            .state('agent.profile', {
+              url: '/agent/profile/:id',
+              template: '<agent-profile></agent-profile>'
+              // resolve: {
+              //   agent: ['$stateParams','BookingAgentApi',($stateParams,api) => api.get($stateParams.id) ] 
+              // },
+              // controller: ($scope, agent) => $scope.agent = agent
+            })
+            // .state('agent.bands', {
+            //   url: '/agent/bands',
+            //   template: '<bands-list></bands-list>'
+            // })
+
+          .state('artist', {
+            template: '<div ui-view></div>'
+          })
+            .state('artist.profile', {
+              url: '/artist/profile/:id',
+              template: '<artist-profile></artist-profile>'
             })
         ;
     })

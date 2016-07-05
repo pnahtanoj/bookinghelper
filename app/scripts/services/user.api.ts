@@ -14,6 +14,7 @@ namespace bh {
 		// createAgent: (user:User) => angular.IPromise<any>;
 		// createBand: (user:User) => angular.IPromise<any>;
         createFirebaseUser: (email:string, password:string) => angular.IPromise<any>;
+        get: (uid:string) => angular.IPromise<any>;
         create: (user:User) => angular.IPromise<any>;
 	}
 
@@ -37,6 +38,21 @@ namespace bh {
 
 		// 	return this.createUser(user);
 		// }
+
+		get(uid:string) :angular.IPromise<any> {
+			let d = this.$q.defer();
+
+			this.usersRef.child(uid).once('value', 
+				(snap) => {
+					d.resolve(snap.val());
+				},
+				(error) => d.reject(error.code)
+			)
+				// .then((user) => d.resolve(user))
+				// .catch((err) => d.reject(err))
+
+			return d.promise;
+		}
 
 		create(user:User) :angular.IPromise<any> {
 			let d = this.$q.defer();

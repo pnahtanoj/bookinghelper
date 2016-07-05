@@ -12,7 +12,7 @@ namespace bh {
 		bands: any;
 		selected: any[];
 		constructor(public $q:angular.IQService) {
-			this.bandsRef = firebase.database().ref(BH_ENDPOINT_BANDS);
+			this.bandsRef = firebase.database().ref(BH_ENDPOINT_ARTISTS);
 			this.selected = [];
 			
 		}

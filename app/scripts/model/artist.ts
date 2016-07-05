@@ -5,7 +5,7 @@ namespace bh {
 
 	'use strict';
 
-	export class BookingAgent implements AngularFireObject {
+	export class Artist implements AngularFireObject {
 		// AngularFireObject values //
 		$id: any;
 		$priority: any;
@@ -20,10 +20,14 @@ namespace bh {
 		// AngularFireObject values //
 
 	    name: string;
+		hometown: string;
+	    genre: string;
 	    active: boolean;
-	    
+
 	    constructor() {
 	    	this.name = '';
+			this.hometown = '';
+	    	this.genre = '';
 	    	this.active = true;
 	    	return this;
 	    }

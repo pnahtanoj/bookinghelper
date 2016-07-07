@@ -13,14 +13,22 @@ namespace bh {
 
 	export interface IVenueApi {
 		venuesRef: any;
+        fetch: () => angular.IPromise<any>;
         create: (venue:Venue) => angular.IPromise<any>;
 	}
 
 	class VenueApi implements IVenueApi {
 		venuesRef: any;
 
-		constructor(public $q:angular.IQService, public $firebaseObject:any, public $mdToast:angular.material.IToastService) {
+		constructor(public $q:angular.IQService, public $firebaseObject:any, public $firebaseArray:any, 
+			public $mdToast:angular.material.IToastService) {
+
 			this.venuesRef = firebase.database().ref(BH_ENDPOINT_VENUES);
+		}
+
+		fetch() :any {
+			console.log(this.$firebaseArray(this.venuesRef));
+			return this.$firebaseArray(this.venuesRef);
 		}
 
 		create(venue:Venue) {
@@ -43,7 +51,7 @@ namespace bh {
 		}
 	} 
 
-	VenueApi.$inject = ['$q','$firebaseObject','$mdToast'];
+	VenueApi.$inject = ['$q','$firebaseObject','$firebaseArray','$mdToast'];
 
 	angular
 		.module('bookingHelperApp')

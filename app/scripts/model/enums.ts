@@ -7,8 +7,8 @@
 
 	const BH_ENDPOINT_ARTISTS = '/artists';
 	const BH_ENDPOINT_BOOKINGAGENTS = '/booking-agents';
-	const BH_ENDPOINT_VENUES = '/venues';
+	const BH_ENDPOINT_EVENTS = '/events';
 	const BH_ENDPOINT_USERS = '/users';
-
+	const BH_ENDPOINT_VENUES = '/venues';
 	
 // }

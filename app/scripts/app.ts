@@ -23,6 +23,7 @@ namespace bh {
       'firebase',
       'ui.router',
       'ngMaterial',
+      'ngMdIcons',
       'md.data.table'
     ])
     .config(function ($stateProvider) {
@@ -32,32 +33,63 @@ namespace bh {
             url: '/login',
             template: '<login></login>'
           })
+          .state('logout', {
+            template: '<logout></logout>'
+          })
           .state('baseline', {
             url: '/baseline',
-            template: '<baseline></baseline>'
+            template: '<baseline></baseline>',
+            resolve: {
+              auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ]
+            }
           })
           .state('agent', {
-            template: '<div ui-view></div>'
+            template: '<div ui-view></div>',
+            resolve: {
+              auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ]
+            }
           })
             .state('agent.profile', {
               url: '/agent/profile/:id',
               template: '<agent-profile></agent-profile>'
-              // resolve: {
-              //   agent: ['$stateParams','BookingAgentApi',($stateParams,api) => api.get($stateParams.id) ] 
-              // },
-              // controller: ($scope, agent) => $scope.agent = agent
             })
-            // .state('agent.bands', {
-            //   url: '/agent/bands',
-            //   template: '<bands-list></bands-list>'
-            // })
+
+          .state('event', {
+            template: '<div ui-view></div>',
+            resolve: {
+              auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ]
+            }
+          })
+            .state('event.list', {
+              url: '/event/list',
+              template: '<event-list venues="venues"></event-list>',
+              resolve: {
+                auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ],
+                venues: ['VenueApi',(api) => api.fetch().$loaded() ]
+                // events: ['EventApi', 'venues', (api, venues) => {
+                //   console.log(venues);
+                // }]
+              },
+              controller: ($scope,venues) => {
+                $scope.venues = venues;
+              }
+            })
 
           .state('artist', {
-            template: '<div ui-view></div>'
+            template: '<div ui-view></div>',
+            resolve: {
+              auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ]
+            }
           })
             .state('artist.profile', {
               url: '/artist/profile/:id',
-              template: '<artist-profile></artist-profile>'
+              template: '<artist-profile artist="artist"></artist-profile>',
+              resolve: {
+                artist: ['ArtistApi','$stateParams',(api,$stateParams) => api.get($stateParams['id']).$loaded()]                
+              },
+              controller: ($scope,artist) => {
+                $scope.artist = artist;
+              }
             })
         ;
     })

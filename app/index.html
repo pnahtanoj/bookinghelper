@@ -10,6 +10,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -22,6 +23,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <toolbar></toolbar>
     <div ui-view class='main-content'></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -50,6 +52,7 @@
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -60,21 +63,29 @@
         <script src="dist/scripts/model/address.js"></script>
         <script src="dist/scripts/model/artist.js"></script>
         <script src="dist/scripts/model/booking.agent.js"></script>
+        <script src="dist/scripts/model/event.js"></script>
         <script src="dist/scripts/model/enums.js"></script>
         <script src="dist/scripts/model/user.js"></script>
         <script src="dist/scripts/model/venue.js"></script>
         <script src="dist/scripts/services/active.session.js"></script>
         <script src="dist/scripts/services/artist.api.js"></script>
         <script src="dist/scripts/services/booking.agent.api.js"></script>        
+        <script src="dist/scripts/services/event.api.js"></script>
         <script src="dist/scripts/services/user.api.js"></script>
         <script src="dist/scripts/services/venue.api.js"></script>
 
+        <script src="dist/scripts/toolbar.js"></script>
+
         <script src="dist/scripts/security/login.js"></script>
+        <!-- <script src="dist/scripts/security/logout.js"></script> -->
 
         <script src="dist/scripts/agent/bands.list.js"></script>
         <script src="dist/scripts/agent/profile.js"></script>
 
         <script src="dist/scripts/artist/profile.js"></script>
+
+        <script src="dist/scripts/event/list.js"></script>
+        <script src="dist/scripts/event/event.list.js"></script>
         <!-- endbuild -->
 
 <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>

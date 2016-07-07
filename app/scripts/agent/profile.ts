@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
 /// <reference path="../../../typings/angular-ui-router/angular-ui-router.d.ts"/>
+/// <reference path="../../../typings/angular-material/angular-material.d.ts"/>
 /// <reference path="../services/booking.agent.api.ts"/>
 
 namespace bh {
@@ -11,20 +12,22 @@ namespace bh {
 	class AgentProfileCtrl {
 		agent: BookingAgent;
 
-		constructor(public BookingAgentApi:IBookingAgentApi, public $stateParams:angular.ui.IStateParamsService) {
+		constructor(
+			public BookingAgentApi:IBookingAgentApi, 
+			public $stateParams:angular.ui.IStateParamsService, 
+			public $mdToast:angular.material.IToastService) {
+			
 			this.agent = this.BookingAgentApi.get( $stateParams['id'] );
-
-			console.log(this.agent);
 		}
 
 		update() {
 			this.agent.$save()
-				.then((ref) => console.log(ref))
-				.catch((error) => console.log(error));
+				.then((ref) => this.$mdToast.show( this.$mdToast.simple().textContent('Successfully updated agent info')))
+				.catch((error) => this.$mdToast.show( this.$mdToast.simple().textContent('Error updating info: ' +  error)));
 		}
 	} 
 
-	AgentProfileCtrl.$inject = ['BookingAgentApi','$stateParams'];
+	AgentProfileCtrl.$inject = ['BookingAgentApi','$stateParams','$mdToast'];
 
 	angular
 		.module('bookingHelperApp')

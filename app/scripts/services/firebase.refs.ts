@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
 /// <reference path="../../../typings/angularfire/angularfire.d.ts"/>
+/// <reference path="../../../typings/firebase/firebase.d.ts"/>
 /// <reference path="../../../typings/es6-promise/es6-promise.d.ts"/>
 /// <reference path="../model/enums.ts"/>
 /// <reference path="../model/event.ts"/>
@@ -11,6 +12,13 @@ namespace bh {
 	declare var firebase: any;
 
 	export interface IFirebaseRefs {
+		root: () => any;
+		events: () => any;
+		venue: (key:string) => any;
+		venues: () => any;
+		// NEW KEYS //
+		getNewEventKey: () => any;
+		getNewVenueKey: () => any;
 	}
 
 	class FirebaseRefs implements IFirebaseRefs {

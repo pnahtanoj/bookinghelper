@@ -75,6 +75,24 @@ namespace bh {
               }
             })
 
+          .state('venue', {
+            template: '<div ui-view></div>',
+            resolve: {
+              auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ]
+            }
+          })
+            .state('venue.list', {
+              url: '/venue/list',
+              template: '<venues venues="venues"></venue-list>',
+              resolve: {
+                auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ],
+                venues: ['VenueFactory','FirebaseRefs',(VenueFactory,FirebaseRefs) => new VenueFactory(FirebaseRefs.venues()).$loaded() ]
+              },
+              controller: ($scope,venues) => {
+                $scope.venues = venues;
+              }
+            })
+
           .state('artist', {
             template: '<div ui-view></div>',
             resolve: {

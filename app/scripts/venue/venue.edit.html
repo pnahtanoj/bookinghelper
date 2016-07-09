@@ -1,0 +1,37 @@
+<!-- {{$ctrl.venue}} -->
+<div flex layout='column' layout-align='start center'>
+	<div layout='row' flex>
+		<md-input-container>
+			<label>Name</label>
+			<input ng-model='$ctrl.venue.name'></input>
+		</md-input-container>
+
+		<md-input-container class="md-block">
+			<label>Address</label>
+			<input ng-model='$ctrl.venue.address.address'></input>
+		</md-input-container>
+
+		<md-input-container class="md-block">
+			<label>City</label>
+			<input ng-model='$ctrl.venue.address.city'></input>
+		</md-input-container>
+
+		<md-input-container class="md-block">
+			<label>State</label>
+			<input ng-model='$ctrl.venue.address.state'></input>
+		</md-input-container>
+
+		<md-input-container class="md-block">
+			<label>Zip</label>
+			<input ng-model='$ctrl.venue.address.zip'></input>
+		</md-input-container>
+	</div>
+
+	<div layout='row' layout-align='center center' flex>
+		<md-button ng-if='!$ctrl.venue.key' ng-click='$ctrl.add()' class='md-primary md-raised'>Add</md-button>
+		<md-button ng-if='$ctrl.venue.key' ng-click='$ctrl.update()'class='md-primary md-raised'>Update</md-button>
+		<md-button ng-if='$ctrl.venue.key' ng-click='$ctrl.delete()'class='md-accent md-raised'>Delete</md-button>
+		<md-button ng-if='$ctrl.venue.key' ng-click='$ctrl.clear()'>Cancel</md-button> 
+	</div>
+
+</div>

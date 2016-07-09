@@ -18,26 +18,23 @@ namespace bh {
 
 	angular
 		.module('bookingHelperApp')
-		.factory('Events', ($firebaseArray) => {
+		.factory('Events', ($firebaseArray,$q) => {
 
 			return $firebaseArray.$extend({
 			    $$added: function(snap, prev) {
 			    	console.log('$$added: ', snap.val());
 			    	return new Event().populate(snap);
-			    }
+			    },
 
-				// $$updated: function(snap) {
-				// 	console.log(snap.key);
+			    findWithVenue: function(key) {
+			    	let d = $q.defer();
 
-				// 	// we need to return true/false here or $watch listeners will not get triggered
-				// 	// luckily, our Widget.prototype.update() method already returns a boolean if
-				// 	// anything has changed
-				// 	// return this.$getRecord(snap.key()).update(snap);
+            		this.$ref().orderByChild("venue/key").equalTo(key).once('value')
+            			.then((resp) => d.resolve(resp))
+            			.catch((error) => d.reject(error));
 
-				// 	// I'm ham fisting to true.
-				// 	// this.$getRecord(snap.key).populate(snap);
-				// 	return true;
-				// }			    
+            		return d.promise;
+			    }	    
 			})
 		});
 }

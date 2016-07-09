@@ -1,0 +1,26 @@
+<div ng-repeat='v in $ctrl.venues' layout='row' layout-padding flex='100'>
+	<div flex>{{v.name}}</div>
+	<div>{{v.address.address}}</div>
+	<div>{{v.address.city}}</div>
+	<div>{{v.address.state}}</div>
+	<div>{{v.address.zip}}</div>
+	<md-button class='md-icon-button' ng-click='$ctrl.edit(v)' aria-label='Edit venue info'>
+		<ng-md-icon icon="edit" size="20"></ng-md-icon>
+	</md-button>	
+</div>
+
+<!-- 
+<table flex='100'>
+<tr ng-repeat='v in $ctrl.venues'>
+	<td flex>{{v.name}}</td>
+	<td>{{v.address.address}}</td>
+	<td>{{v.address.city}}</td>
+	<td>{{v.address.state}}</td>
+	<td>{{v.address.zip}}</td>
+	<td>
+		<md-button class='md-icon-button' ng-click='$ctrl.edit(v)' aria-label='Edit venue info'>
+			<ng-md-icon icon="edit" size="20"></ng-md-icon>
+		</md-button>
+	</td>
+</tr>
+<table> -->

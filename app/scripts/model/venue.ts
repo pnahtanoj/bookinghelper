@@ -32,5 +32,20 @@ namespace bh {
 	    		this.active = snapshot.val().active;
 	    	return this;
 	    }
+
+	    toJSON() {
+            return angular.extend({}, {
+            	key: this.key,
+                name: this.name,
+	            address: {
+					address: this.address.address,
+					address2: this.address.address2,
+					city: this.address.city,
+					state: this.address.state,
+					zip: this.address.zip
+                },
+                active: this.active
+            });	    	
+	    }
 	}
 }

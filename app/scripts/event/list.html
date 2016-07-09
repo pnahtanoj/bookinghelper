@@ -3,24 +3,7 @@
 
 	<event-list-dir events='$ctrl.events' edit-event='$ctrl.edit(event)'></event-list-dir>
 
-	<md-input-container>
-		<label>Title</label>
-		<input ng-model='$ctrl.event.title'></input>
-	</md-input-container>
+	<!-- <event-list-dir events='$ctrl.eventsDef'></event-list-dir> -->
 
-	<md-input-container class="md-block">
-		<label>Venue</label>
-		<md-select ng-model="$ctrl.venue">
-			<md-option ng-repeat="v in $ctrl.venues" ng-value='v'>
-				{{v.name}}
-			</md-option>
-		</md-select>
-	</md-input-container>
-
-	<div layout='row'>
-		<md-button ng-if='!$ctrl.event.$id' ng-click='$ctrl.add()'>Add</md-button>
-		<md-button ng-if='$ctrl.event.$id' ng-click='$ctrl.update()'>Update</md-button>
-		<md-button ng-if='$ctrl.event.$id' ng-click='$ctrl.cancel()'>Cancel</md-button>
-	</div>
-
+	<event-edit original='$ctrl.eventUnedited' edit='$ctrl.event' venue='$ctrl.venue' venues='$ctrl.venues'></event-edit>
 </md-content>

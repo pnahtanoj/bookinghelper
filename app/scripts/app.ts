@@ -65,7 +65,7 @@ namespace bh {
               template: '<event-list venues="venues"></event-list>',
               resolve: {
                 auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ],
-                venues: ['VenueApi',(api) => api.fetch().$loaded() ]
+                venues: ['VenueFactory','FirebaseRefs',(VenueFactory,FirebaseRefs) => new VenueFactory(FirebaseRefs.venues()) ]
                 // events: ['EventApi', 'venues', (api, venues) => {
                 //   console.log(venues);
                 // }]

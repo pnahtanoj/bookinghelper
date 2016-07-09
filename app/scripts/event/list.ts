@@ -3,6 +3,9 @@
 /// <reference path="../../../typings/angular-ui-router/angular-ui-router.d.ts"/>
 /// <reference path="../../../typings/angular-material/angular-material.d.ts"/>
 /// <reference path="../services/event.api.ts"/>
+/// <reference path="../services/venue.event.api.ts"/>
+/// <reference path="../services/agent.event.api.ts"/>
+/// <reference path="../services/active.session.ts"/>
 /// <reference path="../model/event.ts"/>
 /// <reference path="../model/venue.ts"/>
 
@@ -10,62 +13,56 @@ namespace bh {
 
 	'use strict';
 
-	// declare var firebase: any;
+	declare var firebase: any;
 
 	class EventListCtrl {
 		venues :any;
 		venue :any;
 		events :any;
+		eventsDef: any;
 		event: any;
+		eventUnedited: any;
 
 		constructor(
-			public EventApi:IEventApi, 
+			public FirebaseRefs:any,
+			public ActiveSession:IActiveSession,
+			public Event:any,
+			public Events:any,
+			public $firebaseArray:any,
+			public $q:angular.IQService,
 			public $stateParams:angular.ui.IStateParamsService,
 			public $mdToast:angular.material.IToastService) {
 
-			this.events = EventApi.fetch();
-			this.clear(); // blanks //
+			// this.events = this.$firebaseArray(this.FirebaseRefs.events());
+			this.events = new Events(this.FirebaseRefs.events());
+
+			this.events.$loaded()
+				.then(() => console.log(this.events))
+
+			this.eventsDef = $firebaseArray(this.FirebaseRefs.events());
 		}
 
-		venueDupe() {
-			let ev = new EventVenue();
-			ev.name = this.venue.name;
-			ev.key = this.venue.$id;
-			return ev;			
-		}
-		add() {
-			this.event.venue = this.venueDupe();
-			this.events.$add(this.event)
-				.then(() => {
-					this.$mdToast.show( this.$mdToast.simple().textContent('Successfully added event'))
-					this.clear();
-				})
-				.catch((error) => this.$mdToast.show( this.$mdToast.simple().textContent(error)))
-		}
 
 		edit(event) {
-			this.event = event;
+			// this.event = new Event().populate(event);
+			this.event = angular.copy(event);
+			this.eventUnedited = angular.copy(this.event);
+
+			console.log(this.event);
 			this.venue = this.venues.$getRecord(this.event.venue.key);
+			// console.log(this.venue);
 		}
-		clear() {
-			this.event = new Event();
-			this.venue = new Venue();
-		}
-		update() {
-			this.event.venue = this.venueDupe();
-			this.events.$save(this.event)
-				.then(() => {
-					this.$mdToast.show( this.$mdToast.simple().textContent('Successfully updated event'))
-					this.clear();
-				})
-				.catch((error) => this.$mdToast.show( this.$mdToast.simple().textContent(error)))
-		}
-		delete() {
-			this.event.$save();
-		}
+
+		// clear() {
+		// 	this.event = new Event();
+		// 	this.venue = new Venue();
+		// }
+		// delete() {
+		// 	this.event.$save();
+		// }
 	} 
 
-	EventListCtrl.$inject = ['EventApi','$stateParams','$mdToast'];
+	EventListCtrl.$inject = ['FirebaseRefs','ActiveSession','Event','Events','$firebaseArray','$q','$stateParams','$mdToast'];
 
 	angular
 		.module('bookingHelperApp')

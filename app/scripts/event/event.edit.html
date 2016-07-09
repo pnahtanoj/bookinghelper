@@ -1,0 +1,23 @@
+{{$ctrl.venue}}
+<div layout='row' flex>
+	<md-input-container>
+		<label>Title</label>
+		<input ng-model='$ctrl.edit.title'></input>
+	</md-input-container>
+
+	<md-input-container class="md-block">
+		<label>Venue</label>
+		<md-select ng-model="$ctrl.venue">
+			<md-option ng-repeat="v in $ctrl.venues" ng-value='v'>
+				{{v.name}}
+			</md-option>
+		</md-select>
+	</md-input-container>
+</div>
+
+<div layout='row' layout-align='center center' flex>
+	<md-button ng-if='!$ctrl.edit.key' ng-click='$ctrl.add()'>Add</md-button>
+	<md-button ng-if='$ctrl.edit.key' ng-click='$ctrl.update()'>Update</md-button>
+	<md-button ng-if='$ctrl.edit.key' ng-click='$ctrl.delete()' class='md-accent'>Delete</md-button>
+	<md-button ng-if='$ctrl.edit.key' ng-click='$ctrl.clear()'>Cancel</md-button>
+</div>

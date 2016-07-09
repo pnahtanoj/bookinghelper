@@ -2,7 +2,7 @@
 /// <reference path="../../../typings/angularfire/angularfire.d.ts"/>
 /// <reference path="../../../typings/angular-ui-router/angular-ui-router.d.ts"/>
 /// <reference path="../../../typings/angular-material/angular-material.d.ts"/>
-/// <reference path="../services/event.api.ts"/>
+/// <reference path="../model/event.ts"/>
 
 namespace bh {
 
@@ -11,6 +11,8 @@ namespace bh {
     // declare var firebase: any;
 
     class EventListDir {
+        events: Event[];
+
         editEvent: (event:any) => any;
 
         constructor() {

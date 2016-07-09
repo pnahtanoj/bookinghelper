@@ -23,7 +23,7 @@ namespace bh {
 
 		constructor(public $q:angular.IQService, public ArtistApi:IArtistApi, 
 			public BookingAgentApi:IBookingAgentApi, public VenueApi:IVenueApi, public UserApi:IUserApi,
-			public $firebaseAuth:any) {
+			public $firebaseAuth:any, public FirebaseRefs:any) {
 
 			this.artistRef = firebase.database().ref(BH_ENDPOINT_ARTISTS);
 			this.bookingAgentsRef = firebase.database().ref(BH_ENDPOINT_BOOKINGAGENTS)
@@ -63,13 +63,20 @@ namespace bh {
 			venues.push(spaceland);
 			venues.push(theecho);
 
+
 			this.clearVenues()
 				.then(() => {
 					angular.forEach(venues, (b) => {
-						this.VenueApi.create(b)
-							.then((resp) => {
-								console.log('venue added: ', b);
-							})
+						b.key = this.FirebaseRefs.getNewVenueKey();
+						this.FirebaseRefs.venue(b.key).update(b);
+
+						// rootRef.update({
+						// 	BH_ENDPOINT_VENUE + '/' + b.key] = b;
+						// })
+						// this.VenueApi.create(b)
+						// 	.then((resp) => {
+						// 		console.log('venue added: ', b);
+						// 	})
 					})
 				})
 				.catch((err) => console.log('clearing error: ', err))
@@ -201,7 +208,7 @@ namespace bh {
 		// }			
 	} 
 
-	BaselineCtrl.$inject = ['$q','ArtistApi','BookingAgentApi','VenueApi','UserApi','$firebaseAuth'];
+	BaselineCtrl.$inject = ['$q','ArtistApi','BookingAgentApi','VenueApi','UserApi','$firebaseAuth','FirebaseRefs'];
 
 	angular
 		.module('bookingHelperApp')

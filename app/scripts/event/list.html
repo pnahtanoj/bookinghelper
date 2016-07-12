@@ -1,9 +1,6 @@
-<md-content flex layout='column' layout-align='center center'>
+<md-content layout='column' layout-padding flex='50' flex-offset='25'>
 	<h1>Event</h1>
 
 	<event-list-dir events='$ctrl.events' edit-event='$ctrl.edit(event)'></event-list-dir>
-
-	<!-- <event-list-dir events='$ctrl.eventsDef'></event-list-dir> -->
-
 	<event-edit original='$ctrl.eventUnedited' edit='$ctrl.event' venue='$ctrl.venue' venues='$ctrl.venues'></event-edit>
 </md-content>

@@ -15,7 +15,7 @@ namespace bh {
     class VenueEdit {
         venue: Venue;
 
-        constructor(public FirebaseRefs:IFirebaseRefs, public Event:any, public Events:any) {
+        constructor(public FirebaseRefs:IFirebaseRefs, public Venue:any, public Events:any) {
             this.clear();
 
             // let query = this.FirebaseRefs.events().orderByChild("venue/name").equalTo('The Echo');
@@ -26,7 +26,7 @@ namespace bh {
         }
 
         clear() {            
-            this.venue = new Venue();
+            this.venue = new this.Venue();
         }
 
         add() {
@@ -76,21 +76,22 @@ namespace bh {
             return this.fanout( this.venue.toJSON() );
         }  
         fanoutDelete() {
-            return this.fanout( null );
+            let fanout = this.fanout( null );
+            fanout[BH_ENDPOINT_VENUE_EVENTS + '/' + this.venue.key] = null;
+            return fanout;
         }  
 
         fanout(venue) {
             let fanoutRefs = {};
 
             fanoutRefs[BH_ENDPOINT_VENUES + '/' + this.venue.key] = venue;
-            fanoutRefs[BH_ENDPOINT_VENUE_EVENTS + '/' + this.venue.key] = venue;
 
             console.log('venue edit fanout: ', fanoutRefs);
             return fanoutRefs;
         }
     } 
 
-    VenueEdit.$inject = ['FirebaseRefs','Event','Events'];
+    VenueEdit.$inject = ['FirebaseRefs','Venue','Events'];
 
     angular
         .module('bookingHelperApp')

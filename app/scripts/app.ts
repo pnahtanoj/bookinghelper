@@ -26,7 +26,8 @@ namespace bh {
       'ngMdIcons',
       'md.data.table'
     ])
-    .config(function ($stateProvider) {
+    .config(function ($stateProvider,$urlRouterProvider) {
+      $urlRouterProvider.otherwise('/login');      
      // EVENTUALLY, LOGIN ROUTES WILL GO HERE //
       $stateProvider
           .state('login', {

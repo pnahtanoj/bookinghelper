@@ -1,16 +1,7 @@
-<table flex>
-<tr ng-repeat='e in $ctrl.events'>
-	<td flex>{{e.title}}</td>
-	<td>{{e.venue.name}}</td>
-	<td>
-		<md-button class='md-icon-button' ng-click='$ctrl.edit(e)' aria-label='Edit event info'>
-			<ng-md-icon icon="edit" size="20"></ng-md-icon>
-		</md-button>
-	</td>
-	<td>
-		<md-button class='md-icon-button' ng-click='$ctrl.delete()' aria-label='Edit event info'>
-			<ng-md-icon icon="close" size="20"></ng-md-icon>
-		</md-button>
-	</td>
-</tr>
-<table>
+<div ng-repeat='e in $ctrl.events' layout='row' layout-padding flex='100'>
+	<div flex>{{e.title}}</div>
+	<div>{{e.venue.name}}</div>
+	<md-button class='md-icon-button' ng-click='$ctrl.edit(e)' aria-label='Edit venue info'>
+		<ng-md-icon icon="edit" size="20"></ng-md-icon>
+	</md-button>	
+</div>

@@ -48,4 +48,11 @@ namespace bh {
             });	    	
 	    }
 	}
+
+	angular
+		.module('bookingHelperApp')
+		.factory('Venue', ($firebaseObject) => {
+			return $firebaseObject.$extend(Venue)
+		});		
+
 }

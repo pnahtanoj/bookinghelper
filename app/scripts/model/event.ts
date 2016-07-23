@@ -20,16 +20,9 @@ namespace bh {
 	    active: boolean;
 
 	    constructor() {
-	    	// console.log('event constructor snap: ', snapshot);
-
 	    	this.title = '';
 	    	this.venue = new EventVenue();
 	    	this.active = true;
-
-	    	// if (!!snapshot && typeof snapshot !== 'undefined') {
-			   //  this.key = snapshot.key;
-		    // 	this.populate( snapshot.val() );
-	    	// }
 	    	return this;
 	    }
 

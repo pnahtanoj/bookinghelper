@@ -7,18 +7,9 @@ namespace bh {
 
 	'use strict';
 
-	// export class Events {
-	//     // constructor() {}
-
-	//     $$added(snap, prev) {
-	//     	console.log(snap);
-	//     	return new Event(snap);
-	//     }
-	// }
-
 	angular
 		.module('bookingHelperApp')
-		.factory('Events', ($firebaseArray,$q) => {
+		.factory('EventFactory', ($firebaseArray,$q) => {
 
 			return $firebaseArray.$extend({
 			    $$added: function(snap, prev) {

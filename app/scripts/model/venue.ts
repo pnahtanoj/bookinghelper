@@ -47,6 +47,13 @@ namespace bh {
                 active: this.active
             });	    	
 	    }
+
+	    toJSONEventInfo() {
+            return angular.extend({}, {
+            	key: this.key,
+                name: this.name
+            });
+	    }
 	}
 
 	angular

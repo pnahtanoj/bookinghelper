@@ -18,28 +18,24 @@ namespace bh {
 	class VenueListCtrl {
 		venue:any;
 		venues:any;
+		events:any;
 
-		constructor(
-			public FirebaseRefs:any,
-			public VenueFactory:any) {
-
-			console.log(this.venues);
-		}
+		constructor() {}
 
 		edit(venue) {
 			this.venue = angular.copy(venue);
-			console.log('EDIT: ', this.venue);
 		}
 	} 
 
-	VenueListCtrl.$inject = ['FirebaseRefs','VenueFactory'];
+	VenueListCtrl.$inject = [];
 
 	angular
 		.module('bookingHelperApp')
 		.component('venues', {
 			templateUrl: 'scripts/venue/list.html',
 			bindings: {
-				venues: '<'
+				venues: '<',
+				events: '<'
 			},
 			controller: VenueListCtrl
 		});

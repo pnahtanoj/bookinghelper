@@ -84,13 +84,15 @@ namespace bh {
           })
             .state('venue.list', {
               url: '/venue/list',
-              template: '<venues venues="venues"></venue-list>',
+              template: '<venues venues="venues" events="events"></venue-list>',
               resolve: {
                 auth: ['$firebaseAuth',($firebaseAuth) => $firebaseAuth().$requireSignIn() ],
-                venues: ['VenueFactory','FirebaseRefs',(VenueFactory,FirebaseRefs) => new VenueFactory(FirebaseRefs.venues()).$loaded() ]
+                venues: ['VenueFactory','FirebaseRefs',(VenueFactory,FirebaseRefs) => new VenueFactory(FirebaseRefs.venues()).$loaded() ],
+                events: ['EventFactory','FirebaseRefs',(EventFactory,FirebaseRefs) => new EventFactory(FirebaseRefs.events()).$loaded() ]
               },
-              controller: ($scope,venues) => {
+              controller: ($scope,venues,events) => {
                 $scope.venues = venues;
+                $scope.events = events;
               }
             })
 
